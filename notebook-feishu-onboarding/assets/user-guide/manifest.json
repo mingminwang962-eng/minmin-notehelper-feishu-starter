@@ -6,5 +6,37 @@
     "meaning": "取消置顶表示已经置顶；未置顶时选择置顶",
     "sha256": "b570cec6b3d5b7b22a03de4eb081a17ef0ce02ee59d94615d855926d31f99bdb",
     "date": "2026-10-22"
+  },
+  {
+    "file": "wechat-phone-search.png",
+    "source": "本项目制作的文字流程图，依据笔记同步助手官方开通教程及微信通用操作整理",
+    "processing": "操作示意，非真实截图、非官方界面；不含账号、个人绑定二维码或密钥",
+    "official_reference": "https://www.bijitongbu.site/tutorials/obsidian-tutorial/",
+    "sha256": "3cb41f70779b3b69ba767c7e46c5cae46fc3dea70bc8178f92090ef5f5d525ac",
+    "date": "2026-10-22"
+  },
+  {
+    "file": "wechat-phone-follow.png",
+    "source": "本项目制作的文字流程图，依据笔记同步助手官方开通教程及微信通用操作整理",
+    "processing": "操作示意，非真实截图、非官方界面；不含账号、个人绑定二维码或密钥",
+    "official_reference": "https://www.bijitongbu.site/tutorials/obsidian-tutorial/",
+    "sha256": "f7d23d947de1e7e4dac6cf9ac0744f9e14cd62fe30f8bfdf90f657c94b5164e1",
+    "date": "2026-10-22"
+  },
+  {
+    "file": "wechat-phone-send-obsidian.png",
+    "source": "本项目制作的文字流程图，依据笔记同步助手官方开通教程及微信通用操作整理",
+    "processing": "操作示意，非真实截图、非官方界面；不含账号、个人绑定二维码或密钥",
+    "official_reference": "https://www.bijitongbu.site/tutorials/obsidian-tutorial/",
+    "sha256": "8c5622eb640f7fdcd7f729034abaca41dd1fc1dcb222fc62a0538656b9642e7f",
+    "date": "2026-10-22"
+  },
+  {
+    "file": "wechat-phone-pin.png",
+    "source": "本项目制作的文字流程图，依据笔记同步助手官方开通教程及微信通用操作整理",
+    "processing": "操作示意，非真实截图、非官方界面；不含账号、个人绑定二维码或密钥",
+    "official_reference": "https://www.bijitongbu.site/tutorials/obsidian-tutorial/",
+    "sha256": "900e4d6acdba3ede456dcdc58adbd43d783128e42ce3bf08b3787a1efdacdae6",
+    "date": "2026-10-22"
   }
 ]

@@ -4,6 +4,19 @@
 
 新增 [微信置顶隐私处理图](../assets/user-guide/wechat-pin-redacted.png)：用户提供截图的 AI 辅助打码版，不属于官方原图。图片顶部已标“已置顶，不用点取消”；右键菜单显示“取消置顶”表示已经置顶，未置顶才点“置顶”；不让用户点击“取消置顶”。其它聊天头像、名称与消息已遮盖，原始截图不放进分享包。
 
+## v0.8：补齐手机连续动作示意
+
+四张新增 PNG 均为本项目制作的操作示意，图内标明“非真实截图”；用于搜索、关注、发送 Obsidian、手机置顶的动作说明。与原有官方开通消息、添加按钮和电脑置顶图一起在第1组一次发齐，不能只发新增图或逐图等待确认。
+
+| 操作 | 新增配图 |
+|---|---|
+| 微信搜索服务号 | [搜索操作示意](../assets/user-guide/wechat-phone-search.png) |
+| 关注、进入发消息页 | [关注操作示意](../assets/user-guide/wechat-phone-follow.png) |
+| 切换文字输入、发送 Obsidian | [发送操作示意](../assets/user-guide/wechat-phone-send-obsidian.png) |
+| 手机开启置顶，已开启就保持 | [手机置顶操作示意](../assets/user-guide/wechat-phone-pin.png) |
+
+来源与哈希见 assets/user-guide/manifest.json。每种手机登录和组织审批页面仍以真实动态页面为准。
+
 ## v0.3：优先使用官方手机原图
 
 原图保存在 `assets/official/`；来源、下载日期、SHA-256 和使用限制见同目录 `manifest.json`。之前九张网页截图保留作背景参考，具体按钮优先看以下原图。Agent 展示时解析为真实绝对路径，实际显示图片，附对应官方链接。
@@ -22,7 +35,7 @@
 | 创建飞书应用 | feishu-create-app.png | [飞书第 3 步](feishu-setup.md) |
 | 确认飞书授权 | feishu-user-consent.png | 飞书第 4 步；历史全权限示例不可照搬 |
 
-标有 `-phone` 的图片来自官方 OneNote 教程，只展示微信通用按钮；本包实际使用自己的 Obsidian 助手，不连接 OneNote。微信搜索、关注按钮、每种手机登录和审批页面缺官方逐屏图，已在详细指引中如实说明。不得用生成图冒充真实截图；遇到差异先查[官方说明入口](help-and-official-docs.md)。
+标有 `-phone` 的图片来自官方 OneNote 教程，只展示微信通用按钮；本包实际使用自己的 Obsidian 助手，不连接 OneNote。微信搜索、关注和手机置顶已增加明确标注的操作示意；这些及每种手机登录、审批页面仍没有本包官方逐屏图，已在详细指引中区分。不得用生成图冒充真实截图；遇到差异先查[官方说明入口](help-and-official-docs.md)。
 
 以下保留 v0.1/v0.2 的网页截图说明：
 

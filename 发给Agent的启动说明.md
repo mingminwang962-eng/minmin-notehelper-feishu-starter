@@ -1,5 +1,7 @@
 # 把这个接入包交给你的 Agent
 
+从网页口令开始时，网页读取失败就由 Agent 自动用命令行 HTTPS 获取 https://tools.minmin11538.cn/notehelper/install.md 与同目录 release.json，下载并校验完整包。接入完成后，日常微信转发与定时同步不必保持下载网页打开。
+
 把 ZIP 发给能读取附件、运行本机命令并联网的 Agent，或先解压再让 Agent 读取里面的 `notebook-feishu-onboarding/SKILL.md`。
 
 复制下面这段一起发过去：

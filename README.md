@@ -2,7 +2,7 @@
 
 把微信里想保存的资料转发给自己的「笔记同步助手」，由 Agent 读取整理、保存到飞书。首次接入、图文指引、测试和后续定时同步，都由 Agent 带着完成。
 
-**当前版本：v0.7** · [下载接入包](downloads/笔记同步飞书接入包-v0.7.zip?raw=true) · [更新说明](CHANGELOG.md) · [完整图文步骤](notebook-feishu-onboarding/references/grouped-messages.md)
+**当前版本：v0.8** · [下载接入包](downloads/笔记同步飞书接入包-v0.8.zip?raw=true) · [更新说明](CHANGELOG.md) · [完整图文步骤](notebook-feishu-onboarding/references/grouped-messages.md)
 
 ## 国内下载与一句话接入
 
@@ -11,8 +11,10 @@
 直接把下面这句话发给可联网、下载文件并执行本机命令的 Agent：
 
 ```text
-请打开 https://tools.minmin11538.cn/notehelper/ ，下载并校验完整接入包，读取包内 notebook-feishu-onboarding/SKILL.md，带我完成微信转发到飞书的接入、测试和定时同步；已有飞书连接直接复用，需要我操作时把整组动作和图片一次发齐。
+请打开 https://tools.minmin11538.cn/notehelper/ ，下载并校验完整接入包；网页读取失败时自动用命令行 HTTPS 获取 https://tools.minmin11538.cn/notehelper/install.md 和同目录 release.json 继续下载。读取包内 notebook-feishu-onboarding/SKILL.md，带我完成微信转发到飞书的接入、测试和定时同步；已有飞书连接直接复用，需要我操作时把整组动作和图片一次发齐。
 ```
+
+网页读取失败时，Agent 自动改用命令行 HTTPS 获取本站 install.md 与 release.json，校验完整包后继续。接入完成后，日常微信转发和定时同步不需要再打开下载网页。
 
 ## 拿到包怎么用
 
@@ -35,7 +37,7 @@
 | 阶段 | Agent 会帮你做什么 | 需要你做什么 |
 | --- | --- | --- |
 | 检查飞书 | 检查现有 CLI、登录和权限，能用就复用 | 只有缺少登录或授权时，本人确认 |
-| 接入笔记同步助手 | 展示官方原图，保存并验证密钥 | 微信关注服务号、发送 `Obsidian`、复制自己的密钥、添加并置顶助手好友 |
+| 接入笔记同步助手 | 展示操作示意及官方原图，保存并验证密钥 | 微信关注服务号、发送 `Obsidian`、复制自己的密钥、添加并置顶助手好友 |
 | 转发测试 | 读取选定条目，写入你确认的飞书位置并读回 | 转发一条资料，等云端完成后告诉 Agent 标题；打开飞书文档验收 |
 | 设置定时 | 按确认的频率和位置建立增量任务，后台试跑并检查去重 | 确认同步频率、保存位置，处理宿主确实要求本人完成的操作 |
 
@@ -61,8 +63,10 @@
 
 ## 版本与验证
 
+v0.8 增加下载兜底与四张手机操作示意；本轮核对完整包、说明书和线上资源，运行客户端及定时逻辑未修改。
+
 v0.7 已通过 45 项本地离线测试，以及新用户 Agent 的 34 次独立运行期断言。它们验证流程、队列和恢复逻辑；真实账号授权、云端解析、飞书图片读回及宿主后台任务，需要在用户自己的环境完成验收。飞书看板暂未配置。
 
-[ZIP 校验值](downloads/SHA256SUMS)：`b4af6d17b696778a2808a0925f8cf9e85545df25da606fdc84faf7d13424cd0f`。
+[ZIP 校验值](downloads/SHA256SUMS)：`8caa4b0aeb6f2809f7a718cefbc23b5002bf342cf051856c5e114c5634277afd`。
 
 本项目是敏敏整理的独立接入引导包，非笔记同步助手、飞书或 WorkBuddy 官方产品。官方教程图片与用户提供的隐私处理图均保留来源说明。本仓库首页结构参考 [dbskill](https://github.com/dontbesilent2025/dbskill) 的“用途 → 快速开始 → 使用方式 → 帮助”组织方式，正文为本项目编写。
