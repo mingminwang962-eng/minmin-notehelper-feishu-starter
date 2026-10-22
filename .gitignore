@@ -6,3 +6,5 @@ __pycache__/
 notehelper.json
 job.json
 notehelper-sync-job/
+
+website/dist/

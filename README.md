@@ -4,6 +4,16 @@
 
 **当前版本：v0.7** · [下载接入包](downloads/笔记同步飞书接入包-v0.7.zip?raw=true) · [更新说明](CHANGELOG.md) · [完整图文步骤](notebook-feishu-onboarding/references/grouped-messages.md)
 
+## 国内下载与一句话接入
+
+[打开国内下载页和说明书](https://tools.minmin11538.cn/notehelper/)。网页、完整 ZIP 和操作图片均由此域名提供，下载包不跳转 GitHub。
+
+直接把下面这句话发给可联网、下载文件并执行本机命令的 Agent：
+
+```text
+请打开 https://tools.minmin11538.cn/notehelper/ ，下载并校验完整接入包，读取包内 notebook-feishu-onboarding/SKILL.md，带我完成微信转发到飞书的接入、测试和定时同步；已有飞书连接直接复用，需要我操作时把整组动作和图片一次发齐。
+```
+
 ## 拿到包怎么用
 
 ### 1. 下载，发给 Agent
