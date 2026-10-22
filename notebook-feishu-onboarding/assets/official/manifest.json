@@ -1,0 +1,122 @@
+[
+  {
+    "file": "wechat-service-account-qr.jpg",
+    "source_page": "https://www.bijitongbu.site/",
+    "image_url": "https://www.bijitongbu.site/assets/wechat-qr.jpg",
+    "sha256": "20830c10d544201a8e1880290374b8012a3545f803bc9becbb103ac7bf11ff7d",
+    "fetched": "2026-10-22",
+    "note": "官方公开原图；仅作示例，个人绑定和授权使用本次真实入口"
+  },
+  {
+    "file": "wechat-opening-message.png",
+    "source_page": "https://www.bijitongbu.site/tutorials/obsidian-tutorial/",
+    "image_url": "https://www.bijitongbu.site/images/blog/obsidian-tutorial/add-obsidian-friend-entry.png",
+    "sha256": "530bb6d249d52ed3127c1b63e02939b22983680772470a945359c67cd3b2cd30",
+    "fetched": "2026-10-22",
+    "note": "官方公开原图；仅作示例，个人绑定和授权使用本次真实入口"
+  },
+  {
+    "file": "wechat-send-content.jpg",
+    "source_page": "https://www.bijitongbu.site/tutorials/obsidian-tutorial/",
+    "image_url": "https://www.bijitongbu.site/images/blog/obsidian-tutorial/send-content-to-obsidian-account.jpg",
+    "sha256": "13a1c07db475bc1d81764dc1db5e83a3873cbca38963df9f19a045719d1d7471",
+    "fetched": "2026-10-22",
+    "note": "官方公开原图；仅作示例，个人绑定和授权使用本次真实入口"
+  },
+  {
+    "file": "wechat-notifications.jpg",
+    "source_page": "https://www.bijitongbu.site/tutorials/obsidian-tutorial/",
+    "image_url": "https://www.bijitongbu.site/images/blog/obsidian-tutorial/sync-notifications.jpg",
+    "sha256": "661d620970bcdaac540cf932a5b507cb785c21635b1e0b4d24657f2c4cf679e4",
+    "fetched": "2026-10-22",
+    "note": "官方公开原图；仅作示例，个人绑定和授权使用本次真实入口"
+  },
+  {
+    "file": "wechat-customer-service.png",
+    "source_page": "https://www.bijitongbu.site/tutorials/obsidian-tutorial/",
+    "image_url": "https://www.bijitongbu.site/images/blog/obsidian-tutorial/contact-customer-service-menu.png",
+    "sha256": "44264a4436bad21418c36caa6d3018c2db3b37fc46a577928a1040375815fa13",
+    "fetched": "2026-10-22",
+    "note": "官方公开原图；仅作示例，个人绑定和授权使用本次真实入口"
+  },
+  {
+    "file": "feishu-create-app.png",
+    "source_page": "https://www.feishu.cn/content/article/7644418854143315157",
+    "image_url": "https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/hera-doc/BfeRbFxSVoXYqYxJpp0cmMDnn4d.png~tplv-jbbdkfciu3-image:0:0.image",
+    "sha256": "9de454da4e4a36ef3935c4edb06038cb5bd836152b3b94aa07415f5f18180849",
+    "fetched": "2026-10-22",
+    "note": "官方公开原图；仅作示例，个人绑定和授权使用本次真实入口"
+  },
+  {
+    "file": "feishu-user-consent.png",
+    "source_page": "https://www.feishu.cn/content/article/7644418854143315157",
+    "image_url": "https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/hera-doc/GS24baCwfoyUquxMN6schpVxnug.png~tplv-jbbdkfciu3-image:0:0.image",
+    "sha256": "9867b0f0c34752231cf03610a5ad905fdb6958cf98e9041219a92f2241da7151",
+    "fetched": "2026-10-22",
+    "note": "官方历史授权界面；不照抄全权限，实际为 docs,drive"
+  },
+  {
+    "file": "08-add-phone.png",
+    "source_page": "https://www.bijitongbu.site/tutorials/onenote-tutorial/",
+    "image_url": "https://www.bijitongbu.site/images/blog/onenote-tutorial/08-add-phone.png",
+    "sha256": "9067ed1ff7e516fa63d53b5d0cba262babc4995f14b2b5fec20cd46aa045982d",
+    "fetched": "2026-10-22",
+    "note": "官方 OneNote 教程的通用微信按钮示例；本包实际选择自己的 Obsidian 好友"
+  },
+  {
+    "file": "09-first-share-phone.png",
+    "source_page": "https://www.bijitongbu.site/tutorials/onenote-tutorial/",
+    "image_url": "https://www.bijitongbu.site/images/blog/onenote-tutorial/09-first-share-phone.png",
+    "sha256": "8a31dc6a5f8ba4fd52b4e05bbf4e9a7dbe47c6237684522c121d3864e9c9e365",
+    "fetched": "2026-10-22",
+    "note": "官方 OneNote 教程的通用微信按钮示例；本包实际选择自己的 Obsidian 好友"
+  },
+  {
+    "file": "10-choose-chat-phone.png",
+    "source_page": "https://www.bijitongbu.site/tutorials/onenote-tutorial/",
+    "image_url": "https://www.bijitongbu.site/images/blog/onenote-tutorial/10-choose-chat-phone.png",
+    "sha256": "f147df376f75427d20217b7510e54329faf253c558df0a4d43005683421304ce",
+    "fetched": "2026-10-22",
+    "note": "官方 OneNote 教程的通用微信按钮示例；本包实际选择自己的 Obsidian 好友"
+  },
+  {
+    "file": "11-send-phone.png",
+    "source_page": "https://www.bijitongbu.site/tutorials/onenote-tutorial/",
+    "image_url": "https://www.bijitongbu.site/images/blog/onenote-tutorial/11-send-phone.png",
+    "sha256": "e34d786176f334286760d5907222c9568cf181b0815386a5a10619f6569fcd64",
+    "fetched": "2026-10-22",
+    "note": "官方 OneNote 教程的通用微信按钮示例；本包实际选择自己的 Obsidian 好友"
+  },
+  {
+    "file": "12-sent-phone.png",
+    "source_page": "https://www.bijitongbu.site/tutorials/onenote-tutorial/",
+    "image_url": "https://www.bijitongbu.site/images/blog/onenote-tutorial/12-sent-phone.png",
+    "sha256": "7a1bf5a156520b896c05490f009753409a8d697e52f1e2f64f917a6e400c2f12",
+    "fetched": "2026-10-22",
+    "note": "官方 OneNote 教程的通用微信按钮示例；本包实际选择自己的 Obsidian 好友"
+  },
+  {
+    "file": "14-service-phone.png",
+    "source_page": "https://www.bijitongbu.site/tutorials/onenote-tutorial/",
+    "image_url": "https://www.bijitongbu.site/images/blog/onenote-tutorial/14-service-phone.png",
+    "sha256": "3dc7baea0bdb83f07ab135ea80c4fc6c68272be42ebe74248e3d127da94018b7",
+    "fetched": "2026-10-22",
+    "note": "官方 OneNote 教程的通用微信按钮示例；本包实际选择自己的 Obsidian 好友"
+  },
+  {
+    "file": "workbuddy-schedule-menu.png",
+    "image_url": "https://download.codebuddy.cn/web/docs/6f76a2f2aa17f550fb03da596b1c8a63724364e2/docs/static/automation-new-menu.dlgvaOLy.png",
+    "source_page": "https://www.codebuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Automation-Guide",
+    "fetched": "2026-10-22",
+    "sha256": "200ca9dec2c1ac8dc6642b5008bb2f1cb219d3a3e211725a284b5d42c4874946",
+    "note": "Official WorkBuddy scheduling UI example; actual workspace and time are user-specific."
+  },
+  {
+    "file": "workbuddy-schedule-form.png",
+    "image_url": "https://download.codebuddy.cn/web/docs/6f76a2f2aa17f550fb03da596b1c8a63724364e2/docs/static/automation-create-dialog.D4IM2z-F.png",
+    "source_page": "https://www.codebuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Automation-Guide",
+    "fetched": "2026-10-22",
+    "sha256": "3625d926fd8de55073d2849f5626bcfcfb1ba041aa77faab7e79816ee3ea8169",
+    "note": "Official WorkBuddy scheduling UI example; actual workspace and time are user-specific."
+  }
+]

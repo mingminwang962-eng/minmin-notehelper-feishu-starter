@@ -1,0 +1,10 @@
+[
+  {
+    "file": "wechat-pin-redacted.png",
+    "source": "用户提供的微信桌面端截图",
+    "processing": "AI辅助隐私打码与标注版；顶部明确写已置顶，不用点取消；非官方原图",
+    "meaning": "取消置顶表示已经置顶；未置顶时选择置顶",
+    "sha256": "b570cec6b3d5b7b22a03de4eb081a17ef0ce02ee59d94615d855926d31f99bdb",
+    "date": "2026-10-22"
+  }
+]
