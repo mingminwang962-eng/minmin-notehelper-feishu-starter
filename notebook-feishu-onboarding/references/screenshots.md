@@ -86,7 +86,7 @@ Agent 执行安装和版本检查；用户不用抄命令。图中的版本号�
 
 ## 8. 飞书个人授权
 
-用户操作：核对账号、应用和本次所需权限后确认，回来回复“已授权”。Agent 再验证登录。**图中的 --recommend 是旧教程示例，本包使用 docs,drive。**
+用户操作：核对账号、应用和本次所需权限后确认，回来回复“已授权”。Agent 再验证登录。**图中的 --recommend 是旧教程示例，本包使用 docs,drive,base。**
 
 ![官方用户授权界面示例](../assets/screenshots/08-feishu-user-auth.jpg)
 

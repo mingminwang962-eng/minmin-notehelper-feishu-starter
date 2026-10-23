@@ -84,19 +84,26 @@ def doc_token(url):
 
 
 def initialize(root, args):
-    require(args.user_tested, '需要用户确认亲自转发测试成功后再初始化定时同步。')
+    require(args.user_tested or getattr(args, 'manual', False), '定时初始化前需要用户验收；首次手动测试使用 --manual。')
     require(not root.exists(), '任务目录已存在；请读取原 job.json 和 status 续接，不重新初始化。')
     require(Path(args.config).is_file(), '请使用已经验证的本机密钥配置文件。')
-    doc_token(args.test_doc_url)
+    if args.test_doc_url:
+        doc_token(args.test_doc_url)
+    board = json.loads(Path(args.board).read_text(encoding='utf-8')) if getattr(args, 'board', None) else None
+    if board:
+        require(bool(board.get('base_token')) and all(n in board.get('tables', {}) for n in
+                ('选题池', '视频剪辑', '作品发布库', '作品数据快照')), '模板映射不完整。')
     baseline = metadata(args.config)
-    require(args.test_note_id in baseline, '未在云端元信息中找到本次测试笔记，尚未初始化。')
+    require(getattr(args, 'manual', False) or args.test_note_id in baseline, '未在云端元信息中找到本次测试笔记，尚未初始化。')
     root.mkdir(mode=0o700, parents=True, exist_ok=False)
     (root / 'runtime').mkdir()
     (root / 'out').mkdir(mode=0o700)
     source = Path(__file__).resolve().parent
-    for name in ('sync_queue.py', 'notehelper_client.py'):
+    for name in ('sync_queue.py', 'notehelper_client.py', 'record_plan.py'):
         shutil.copyfile(source / name, root / 'runtime' / name)
     runbook = (source.parent / 'references' / 'scheduled-run.md').read_text(encoding='utf-8')
+    rules = source.parent / 'references' / 'recording-rules.md'
+    shutil.copyfile(rules, root / 'recording-rules.md')
     (root / 'RUN.md').write_text('# 本机定时同步任务\n\n工作目录：' + str(root) +
         '\n\n解释器：' + sys.executable + '\n\n' + runbook, encoding='utf-8')
     (root / 'CONTINUE.md').write_text(
@@ -104,15 +111,16 @@ def initialize(root, args):
         ' 和 job.json。先检查已登记的定时任务及运行记录，复用现有配置；'
         '若未登记任务，先按已确认规则创建或进入支持定时的入口。不要新建第二套任务。'
         '密钥只按 job.json 中的配置路径读取，不复制到任务提示词或云端。\n', encoding='utf-8')
-    job = {'version': 1, 'created_at': now(), 'python': sys.executable,
+    job = {'version': 2, 'created_at': now(), 'python': sys.executable,
            'config': str(Path(args.config).resolve()), 'target': args.target,
            'cadence': args.cadence, 'timezone': args.timezone,
-           'user_test_confirmed': True, 'test_note_id': args.test_note_id,
+           'user_test_confirmed': bool(args.user_tested), 'board': board, 'test_note_id': args.test_note_id,
            'test_doc_url': args.test_doc_url, 'baseline': list(baseline),
            'items': {}, 'schedule': None}
     save(root / 'job.json', job)
     return {'ok': True, 'job': str(root), 'baseline_count': len(baseline),
-            'scheduled': False, 'next': '由 Agent 创建宿主定时任务、立即试跑并登记回执；初始化不等于启用。'}
+            'scheduled': False, 'next': ('先按共用流程完成指定资料测试，等用户验收并确认频率后设置定时。'
+            if getattr(args, 'manual', False) else '由 Agent 创建宿主定时任务、立即试跑并登记回执；初始化不等于启用。')}
 
 
 def scan(root, job):
@@ -123,6 +131,7 @@ def scan(root, job):
             job['items'][note_id] = {'status': 'pending', 'metadata': article}
         elif note_id in job['items'] and job['items'][note_id]['status'] == 'pending':
             job['items'][note_id]['metadata'] = article
+            job['items'][note_id]['query'] = ''
     for note_id, item in job['items'].items():
         if item['status'] == 'pending':
             item['available'] = note_id in articles
@@ -149,7 +158,7 @@ def next_item(root, job, skip_ids=()):
             deferred.append(note_id)
             continue
         try:
-            response = cloud.search(configured_key(job['config']), '', 1,
+            response = cloud.search(configured_key(job['config']), item.get('query', ''), 1,
                                     article['result_after'], True, note_id)
         except cloud.SelectionError:
             item['last_error'] = '选定 ID 或位置已变化；下轮重新扫描，不扩大正文范围。'
@@ -195,6 +204,19 @@ def complete(root, job, args):
     require(receipt.get('ok') is True and receipt.get('identity') == 'user'
             and document.get('document_id') == doc_token(item['doc_url'])
             and bool(document.get('content')), '回执身份、文档 ID 或正文不符，未记完成。')
+    if job.get('board'):
+        require(bool(item.get('record_id')) and bool(args.index_readback), '索引尚未绑定/读回，不能只完成正文就记入库。')
+        index_path = (root / args.index_readback).resolve()
+        require(root in index_path.parents, '索引回执必须在任务目录内。')
+        index_receipt = json.loads(index_path.read_text(encoding='utf-8'))
+        data = index_receipt.get('data') or {}
+        require(index_receipt.get('ok') is True and index_receipt.get('identity') == 'user'
+                and item['record_id'] in data.get('record_id_list', []), '索引回执不属于绑定的记录。')
+        row = data['data'][data['record_id_list'].index(item['record_id'])]
+        cells = dict(zip(data['fields'], row))
+        require(item['doc_url'] in str(cells.get('笔记文档', ''))
+                and ('NoteHelper ID:' + args.id) in str(cells.get('备注', '')), '索引文档或来源 ID 不匹配。')
+        item['index_readback'] = str(index_path.relative_to(root))
     require(args.content_checked and args.images_checked, 'Agent 还需实际核对正文和图片，不只检查退出码。')
     item.update(status='done', completed_at=now(), readback=str(receipt_path.relative_to(root)),
                 readback_sha256=hashlib.sha256(receipt_path.read_bytes()).hexdigest())
@@ -207,8 +229,13 @@ def main():
     parser.add_argument('--job', type=Path, required=True)
     commands = parser.add_subparsers(dest='command', required=True)
     setup = commands.add_parser('init')
-    for flag in ('config', 'target', 'cadence', 'timezone', 'test-note-id', 'test-doc-url'):
+    for flag in ('config', 'target', 'timezone'):
         setup.add_argument('--' + flag, required=True)
+    setup.add_argument('--cadence', default='manual')
+    setup.add_argument('--test-note-id')
+    setup.add_argument('--test-doc-url')
+    setup.add_argument('--manual', action='store_true')
+    setup.add_argument('--board', help='模板创建后返回的 board.json；新流程必须提供')
     setup.add_argument('--user-tested', action='store_true')
     for name in ('scan', 'status'):
         commands.add_parser(name)
@@ -223,6 +250,20 @@ def main():
     finish.add_argument('--readback', required=True)
     finish.add_argument('--content-checked', action='store_true')
     finish.add_argument('--images-checked', action='store_true')
+    finish.add_argument('--index-readback')
+    select = commands.add_parser('select')
+    select.add_argument('--id', required=True)
+    select.add_argument('--query', required=True)
+    index = commands.add_parser('index-start')
+    index.add_argument('--id', required=True)
+    index_bind = commands.add_parser('bind-index')
+    index_bind.add_argument('--id', required=True)
+    index_bind.add_argument('--record-id', required=True)
+    owner = commands.add_parser('run-claim')
+    owner.add_argument('--owner', required=True)
+    release = commands.add_parser('run-release')
+    release.add_argument('--owner', required=True)
+    parser.add_argument('--owner', help='一轮手动/定时任务共用的运行锁持有者')
     schedule = commands.add_parser('schedule-receipt')
     for flag in ('task-id', 'next-run', 'trial-id'):
         schedule.add_argument('--' + flag, required=True)
@@ -235,7 +276,42 @@ def main():
         return
     with locked(root):
         job = json.loads((root / 'job.json').read_text(encoding='utf-8'))
-        if args.command == 'scan':
+        lease = root / '.run.lock'
+        if args.command == 'run-claim':
+            require(not lease.exists(), '另一轮同步尚未释放运行锁；先核对原任务，不并发创建。')
+            save(lease, {'owner': args.owner, 'started_at': now()})
+            cloud.output({'ok': True, 'owner': args.owner});return
+        if job.get('board') and args.command not in ('status', 'schedule-receipt'):
+            require(lease.exists(), '先 run-claim 获取整轮运行锁，再执行手动或定时同步。')
+        if args.command != 'status' and lease.exists():
+            require(json.loads(lease.read_text()).get('owner') == args.owner, '运行锁不属于本轮同步。')
+        if args.command == 'run-release':
+            require(lease.exists(), '没有可释放的运行锁。')
+            lease.unlink();cloud.output({'ok': True});return
+        if args.command == 'select':
+            if args.id in job['items']:
+                result = {'ok': True, 'id': args.id, 'status': job['items'][args.id]['status'], 'duplicate': True}
+            else:
+                page = cloud.search(configured_key(job['config']), args.query, 50, 0, False)
+                matches = [a for a in page['articles'] if a['id'] == args.id]
+                require(len(matches) == 1, '指定资料未在当前搜索页唯一匹配；先只读定位，不扩大正文范围。')
+                job['items'][args.id] = {'status': 'pending', 'metadata': matches[0], 'query': args.query}
+                save(root / 'job.json', job)
+                result = {'ok': True, 'id': args.id, 'status': 'pending'}
+        elif args.command == 'index-start':
+            item = job['items'][args.id]
+            require(item['status'] == 'created' and bool(job.get('board')), '先绑定正文文档和目标模板。')
+            new = not item.get('index_started')
+            item['index_started'] = True;save(root / 'job.json', job)
+            result = {'ok': True, 'new_claim': new, 'record_id': item.get('record_id'),
+                      'notice': 'new_claim=false 时先检索来源 ID，不能再次创建索引。'}
+        elif args.command == 'bind-index':
+            item = job['items'][args.id]
+            require(item.get('index_started') and item.get('record_id', args.record_id) == args.record_id
+                    and bool(re.fullmatch(r'rec[A-Za-z0-9]+', args.record_id)), '索引状态或绑定不符。')
+            item['record_id'] = args.record_id;save(root / 'job.json', job)
+            result = {'ok': True, 'record_id': args.record_id}
+        elif args.command == 'scan':
             result = scan(root, job)
         elif args.command == 'next':
             result = next_item(root, job, args.skip_id)
@@ -260,7 +336,7 @@ def main():
                       'notice': '本程序不创建或验证宿主任务；Agent 必须核对实际任务详情与试跑结果。'}
         else:
             result = {'ok': True, 'target': job['target'], 'cadence': job['cadence'],
-                      'timezone': job['timezone'], 'schedule': job['schedule'],
+                      'timezone': job['timezone'], 'schedule': job['schedule'], 'board': job.get('board'),
                       'items': {k: {'status': v['status'], 'doc_url': v.get('doc_url')}
                                 for k, v in job['items'].items()}}
     cloud.output(result)

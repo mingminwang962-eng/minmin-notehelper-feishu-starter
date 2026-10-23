@@ -1,0 +1,1554 @@
+{
+  "version": 1,
+  "name": "内容创作模板",
+  "tables": {
+    "选题池": {
+      "fields": [
+        {
+          "default_value": null,
+          "name": "标题",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "name": "转发",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": false,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "name": "原文链接",
+          "style": {
+            "type": "url"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "name": "发布时间",
+          "style": {
+            "format": "yyyy/MM/dd"
+          },
+          "type": "datetime"
+        },
+        {
+          "default_value": null,
+          "description": "抖音视频原始文案（含话题标签），浏览器抓取",
+          "name": "视频文案",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "name": "封面图",
+          "style": {
+            "type": "plain"
+          },
+          "type": "attachment"
+        },
+        {
+          "default_value": null,
+          "name": "收藏",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": false,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "multiple": false,
+          "name": "平台",
+          "options": [
+            {
+              "hue": "Red",
+              "lightness": "Light",
+              "name": "小红书"
+            },
+            {
+              "hue": "Green",
+              "lightness": "Light",
+              "name": "公众号"
+            },
+            {
+              "hue": "Wathet",
+              "lightness": "Light",
+              "name": "抖音"
+            },
+            {
+              "hue": "Purple",
+              "lightness": "Light",
+              "name": "B站"
+            },
+            {
+              "hue": "Blue",
+              "lightness": "Light",
+              "name": "知乎"
+            },
+            {
+              "hue": "Yellow",
+              "lightness": "Light",
+              "name": "视频号"
+            },
+            {
+              "hue": "Gray",
+              "lightness": "Light",
+              "name": "其他"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "default_value": [
+            "待定"
+          ],
+          "multiple": false,
+          "name": "route",
+          "options": [
+            {
+              "hue": "Orange",
+              "lightness": "Light",
+              "name": "对标"
+            },
+            {
+              "hue": "Green",
+              "lightness": "Light",
+              "name": "内容"
+            },
+            {
+              "hue": "Blue",
+              "lightness": "Light",
+              "name": "学习"
+            },
+            {
+              "hue": "Gray",
+              "lightness": "Light",
+              "name": "待定"
+            },
+            {
+              "hue": "Gray",
+              "lightness": "Lighter",
+              "name": "忽略"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "default_value": null,
+          "name": "备注",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "bidirectional": true,
+          "link_table": "视频剪辑",
+          "name": "录制与剪辑版本",
+          "type": "link"
+        },
+        {
+          "default_value": null,
+          "name": "抓取时间",
+          "style": {
+            "format": "yyyy/MM/dd"
+          },
+          "type": "datetime"
+        },
+        {
+          "default_value": null,
+          "description": "拉取正文对应的飞书文档，点击查看全文",
+          "name": "笔记文档",
+          "style": {
+            "type": "url"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": [
+            "待研究"
+          ],
+          "multiple": false,
+          "name": "选题状态",
+          "options": [
+            {
+              "hue": "Gray",
+              "lightness": "Light",
+              "name": "待研究"
+            },
+            {
+              "hue": "Blue",
+              "lightness": "Light",
+              "name": "可改写"
+            },
+            {
+              "hue": "Orange",
+              "lightness": "Light",
+              "name": "已写作"
+            },
+            {
+              "hue": "Red",
+              "lightness": "Light",
+              "name": "已拍摄"
+            },
+            {
+              "hue": "Green",
+              "lightness": "Light",
+              "name": "已发布"
+            },
+            {
+              "hue": "Gray",
+              "lightness": "Lighter",
+              "name": "放弃"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "default_value": null,
+          "name": "点赞",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": false,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "name": "评论",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": false,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "name": "作者",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        }
+      ],
+      "views": [
+        {
+          "name": "表格",
+          "type": "grid",
+          "visible": {
+            "visible_fields": [
+              "标题",
+              "作者",
+              "平台",
+              "发布时间",
+              "点赞",
+              "收藏",
+              "评论",
+              "转发",
+              "封面图",
+              "原文链接",
+              "route",
+              "选题状态",
+              "抓取时间",
+              "备注",
+              "笔记文档",
+              "视频文案",
+              "录制与剪辑版本"
+            ]
+          }
+        },
+        {
+          "name": "01 选题总览",
+          "type": "kanban",
+          "visible": {
+            "visible_fields": [
+              "标题",
+              "选题状态",
+              "route",
+              "平台",
+              "作者",
+              "备注",
+              "笔记文档",
+              "录制与剪辑版本"
+            ]
+          },
+          "group": {
+            "group": [
+              {
+                "desc": false,
+                "field": "选题状态"
+              }
+            ]
+          }
+        },
+        {
+          "name": "02 写作与待录制",
+          "type": "kanban",
+          "visible": {
+            "visible_fields": [
+              "标题",
+              "选题状态",
+              "备注",
+              "笔记文档",
+              "录制与剪辑版本"
+            ]
+          },
+          "filter": {
+            "conditions": [
+              [
+                "选题状态",
+                "intersects",
+                [
+                  "可改写",
+                  "已写作"
+                ]
+              ]
+            ],
+            "logic": "and"
+          },
+          "group": {
+            "group": [
+              {
+                "desc": false,
+                "field": "选题状态"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "视频剪辑": {
+      "fields": [
+        {
+          "default_value": null,
+          "name": "视频名称",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "name": "封面图",
+          "style": {
+            "type": "plain"
+          },
+          "type": "attachment"
+        },
+        {
+          "default_value": null,
+          "name": "发布标题",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "description": "选题池中与本视频明确对应的选题标题；不确定时留空",
+          "name": "对标选题",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "name": "备注",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "description": "逐项记录封面文案、照片/风格、封面、标题、简介的候选或确认情况及下一步；独立于剪辑状态。",
+          "name": "包装进度",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "bidirectional": true,
+          "link_table": "作品发布库",
+          "name": "发布作品",
+          "type": "link"
+        },
+        {
+          "default_value": null,
+          "description": "从选题池的原文链接复制；没有对标时留空",
+          "name": "对标链接",
+          "style": {
+            "type": "url"
+          },
+          "type": "text"
+        },
+        {
+          "bidirectional": true,
+          "description": "关联副本内的选题；同一选题可对应初录、重录和补录等多个版本。",
+          "link_table": "选题池",
+          "name": "关联选题",
+          "type": "link"
+        },
+        {
+          "default_value": null,
+          "description": "发布简介文案；是否为已确认定稿以包装进度为准，候选不能视为最终稿。",
+          "name": "发布简介",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "description": "用户自己的录制批次；按实际录制日期或批次增补，不预填个人历史期次。",
+          "multiple": false,
+          "name": "录制期次",
+          "options": [
+            {
+              "name": "批次1",
+              "hue": "Blue",
+              "lightness": "Light"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "default_value": null,
+          "description": "记录本视频具体参照的结构、表达或画面细节；未核实的细节不猜填",
+          "name": "对标参考细节",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "description": "复制选题池的笔记文档链接，供剪辑时查看具体参考内容",
+          "name": "对标笔记文档",
+          "style": {
+            "type": "url"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "name": "基础精简路径",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "name": "原素材路径",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "description": "本条录制版本在基础精简前的原视频时长，按分:秒展示。",
+          "name": "原片时长",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": [
+            "待剪辑"
+          ],
+          "multiple": false,
+          "name": "剪辑状态",
+          "options": [
+            {
+              "name": "待剪辑",
+              "hue": "Gray",
+              "lightness": "Light"
+            },
+            {
+              "name": "剪辑中",
+              "hue": "Orange",
+              "lightness": "Light"
+            },
+            {
+              "name": "待审核",
+              "hue": "Blue",
+              "lightness": "Light"
+            },
+            {
+              "name": "已完成",
+              "hue": "Green",
+              "lightness": "Light"
+            },
+            {
+              "name": "已发布",
+              "hue": "Green",
+              "lightness": "Light"
+            },
+            {
+              "name": "搁置",
+              "hue": "Gray",
+              "lightness": "Light"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "default_value": null,
+          "name": "封面文案",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "name": "对轨成片路径",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "name": "逐字稿",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        }
+      ],
+      "views": [
+        {
+          "name": "表格",
+          "type": "grid",
+          "visible": {
+            "visible_fields": [
+              "视频名称",
+              "对标链接",
+              "剪辑状态",
+              "原片时长",
+              "原素材路径",
+              "对轨成片路径",
+              "基础精简路径",
+              "发布标题",
+              "封面文案",
+              "封面图",
+              "备注",
+              "对标选题",
+              "对标笔记文档",
+              "对标参考细节",
+              "逐字稿",
+              "包装进度",
+              "发布简介",
+              "录制期次",
+              "关联选题",
+              "发布作品"
+            ]
+          }
+        },
+        {
+          "name": "01 录制情况（按期次）",
+          "type": "kanban",
+          "visible": {
+            "visible_fields": [
+              "视频名称",
+              "录制期次",
+              "剪辑状态",
+              "原片时长",
+              "关联选题",
+              "原素材路径",
+              "发布作品"
+            ]
+          },
+          "group": {
+            "group": [
+              {
+                "desc": false,
+                "field": "录制期次"
+              }
+            ]
+          }
+        },
+        {
+          "name": "02 剪辑进行中",
+          "type": "kanban",
+          "visible": {
+            "visible_fields": [
+              "视频名称",
+              "剪辑状态",
+              "录制期次",
+              "关联选题",
+              "原片时长",
+              "包装进度",
+              "发布作品"
+            ]
+          },
+          "filter": {
+            "conditions": [
+              [
+                "剪辑状态",
+                "intersects",
+                [
+                  "待剪辑",
+                  "待剪辑",
+                  "剪辑中",
+                  "剪辑中",
+                  "剪辑中",
+                  "待审核",
+                  "已完成"
+                ]
+              ]
+            ],
+            "logic": "and"
+          },
+          "group": {
+            "group": [
+              {
+                "desc": false,
+                "field": "剪辑状态"
+              }
+            ]
+          }
+        },
+        {
+          "name": "03 已发布封面墙",
+          "type": "gallery",
+          "visible": {
+            "visible_fields": [
+              "视频名称",
+              "录制期次",
+              "发布标题",
+              "封面文案",
+              "关联选题"
+            ]
+          },
+          "filter": {
+            "conditions": [
+              [
+                "剪辑状态",
+                "intersects",
+                [
+                  "已发布"
+                ]
+              ],
+              [
+                "封面图",
+                "non_empty",
+                null
+              ]
+            ],
+            "logic": "and"
+          },
+          "card": {
+            "card": {
+              "cover_field": "封面图"
+            }
+          }
+        }
+      ]
+    },
+    "作品发布库": {
+      "fields": [
+        {
+          "default_value": null,
+          "name": "作品标题",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "bidirectional": true,
+          "link_table": "视频剪辑",
+          "name": "对应剪辑版本",
+          "type": "link"
+        },
+        {
+          "name": "正式封面",
+          "style": {
+            "type": "plain"
+          },
+          "type": "attachment"
+        },
+        {
+          "default_value": null,
+          "name": "作品链接",
+          "style": {
+            "type": "url"
+          },
+          "type": "text"
+        },
+        {
+          "bidirectional": true,
+          "link_table": "作品数据快照",
+          "name": "数据快照",
+          "type": "link"
+        },
+        {
+          "default_value": null,
+          "multiple": false,
+          "name": "核对状态",
+          "options": [
+            {
+              "hue": "Blue",
+              "lightness": "Lighter",
+              "name": "待核对"
+            },
+            {
+              "hue": "Turquoise",
+              "lightness": "Lighter",
+              "name": "已核对"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "default_value": null,
+          "name": "账号",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "name": "作品复盘",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "name": "实际发布时间",
+          "style": {
+            "format": "yyyy-MM-dd HH:mm"
+          },
+          "type": "datetime"
+        },
+        {
+          "default_value": null,
+          "name": "下一次尝试",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "multiple": false,
+          "name": "发布平台",
+          "options": [
+            {
+              "hue": "Gray",
+              "lightness": "Lighter",
+              "name": "抖音"
+            },
+            {
+              "hue": "Gray",
+              "lightness": "Lighter",
+              "name": "小红书"
+            },
+            {
+              "hue": "Lime",
+              "lightness": "Lighter",
+              "name": "视频号"
+            },
+            {
+              "hue": "Blue",
+              "lightness": "Lighter",
+              "name": "B站"
+            },
+            {
+              "hue": "Turquoise",
+              "lightness": "Lighter",
+              "name": "公众号"
+            },
+            {
+              "hue": "Gray",
+              "lightness": "Lighter",
+              "name": "其他"
+            }
+          ],
+          "type": "select"
+        }
+      ],
+      "views": [
+        {
+          "name": "表格",
+          "type": "grid",
+          "visible": {
+            "visible_fields": [
+              "作品标题",
+              "发布平台",
+              "账号",
+              "实际发布时间",
+              "作品链接",
+              "正式封面",
+              "对应剪辑版本",
+              "核对状态",
+              "作品复盘",
+              "下一次尝试",
+              "数据快照"
+            ]
+          }
+        },
+        {
+          "name": "01 正式作品墙",
+          "type": "gallery",
+          "visible": {
+            "visible_fields": [
+              "作品标题",
+              "发布平台",
+              "账号",
+              "实际发布时间",
+              "作品链接",
+              "核对状态",
+              "数据快照"
+            ]
+          },
+          "card": {
+            "card": {
+              "cover_field": "正式封面"
+            }
+          }
+        }
+      ]
+    },
+    "作品数据快照": {
+      "fields": [
+        {
+          "default_value": null,
+          "description": "同一作品每次截图单独记录，建议：作品标题｜统计时间。",
+          "name": "快照名称",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "name": "后台截图",
+          "style": {
+            "type": "plain"
+          },
+          "type": "attachment"
+        },
+        {
+          "default_value": null,
+          "name": "本次观察",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "bidirectional": true,
+          "link_table": "作品发布库",
+          "name": "关联作品",
+          "type": "link"
+        },
+        {
+          "default_value": null,
+          "description": "截图可见的累计数值；未显示则留空，不填0代替。",
+          "name": "分享数",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": true,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": [
+            "待核对"
+          ],
+          "multiple": false,
+          "name": "数据口径",
+          "options": [
+            {
+              "hue": "Wathet",
+              "lightness": "Lighter",
+              "name": "累计"
+            },
+            {
+              "hue": "Gray",
+              "lightness": "Lighter",
+              "name": "区间"
+            },
+            {
+              "hue": "Blue",
+              "lightness": "Lighter",
+              "name": "待核对"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "default_value": null,
+          "description": "截图可见的累计数值；未显示则留空，不填0代替。",
+          "name": "评论数",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": true,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": [
+            "待核对"
+          ],
+          "multiple": false,
+          "name": "核对状态",
+          "options": [
+            {
+              "hue": "Blue",
+              "lightness": "Lighter",
+              "name": "待核对"
+            },
+            {
+              "hue": "Turquoise",
+              "lightness": "Lighter",
+              "name": "已核对"
+            }
+          ],
+          "type": "select"
+        },
+        {
+          "default_value": null,
+          "description": "截图可见的累计数值；未显示则留空，不填0代替。",
+          "name": "收藏数",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": true,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "description": "按0到1的小数录入，例如25%填0.25；未显示则留空。",
+          "name": "完播率",
+          "style": {
+            "percentage": true,
+            "precision": 2,
+            "thousands_separator": false,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "description": "截图可见的累计数值；未显示则留空，不填0代替。",
+          "name": "播放量",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": true,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "description": "截图可见的累计数值；未显示则留空，不填0代替。",
+          "name": "曝光量",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": true,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "description": "例如发布后24小时累计、近7天、自然日新增；累计与区间数据分开。",
+          "name": "统计口径",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "description": "截图可见的累计数值；未显示则留空，不填0代替。",
+          "name": "新增关注",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": true,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "description": "截图显示的平均观看时长，以秒记录；可保留两位小数，未显示则留空。",
+          "name": "平均观看秒数",
+          "style": {
+            "percentage": false,
+            "precision": 2,
+            "thousands_separator": true,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "description": "按0到1的小数录入，例如25%填0.25；未显示则留空。",
+          "name": "点击率",
+          "style": {
+            "percentage": true,
+            "precision": 2,
+            "thousands_separator": false,
+            "type": "plain"
+          },
+          "type": "number"
+        },
+        {
+          "default_value": null,
+          "name": "统计时间",
+          "style": {
+            "format": "yyyy-MM-dd HH:mm"
+          },
+          "type": "datetime"
+        },
+        {
+          "default_value": null,
+          "name": "截图原文与疑问",
+          "style": {
+            "type": "plain"
+          },
+          "type": "text"
+        },
+        {
+          "default_value": null,
+          "description": "截图可见的累计数值；未显示则留空，不填0代替。",
+          "name": "点赞数",
+          "style": {
+            "percentage": false,
+            "precision": 0,
+            "thousands_separator": true,
+            "type": "plain"
+          },
+          "type": "number"
+        }
+      ],
+      "views": [
+        {
+          "name": "表格",
+          "type": "grid",
+          "visible": {
+            "visible_fields": [
+              "快照名称",
+              "关联作品",
+              "统计时间",
+              "统计口径",
+              "数据口径",
+              "后台截图",
+              "核对状态",
+              "播放量",
+              "曝光量",
+              "点赞数",
+              "评论数",
+              "收藏数",
+              "分享数",
+              "新增关注",
+              "完播率",
+              "点击率",
+              "平均观看秒数",
+              "截图原文与疑问",
+              "本次观察"
+            ]
+          }
+        },
+        {
+          "name": "01 待核对截图",
+          "type": "gallery",
+          "visible": {
+            "visible_fields": [
+              "快照名称",
+              "关联作品",
+              "统计时间",
+              "核对状态",
+              "截图原文与疑问"
+            ]
+          },
+          "filter": {
+            "conditions": [
+              [
+                "核对状态",
+                "intersects",
+                [
+                  "待核对"
+                ]
+              ],
+              [
+                "核对状态",
+                "empty",
+                null
+              ]
+            ],
+            "logic": "or"
+          },
+          "card": {
+            "card": {
+              "cover_field": "后台截图"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "dashboards": [
+    {
+      "name": "00 创作首页",
+      "blocks": [
+        {
+          "name": "内容资产 · 选题",
+          "type": "statistics",
+          "position": {
+            "h": 2,
+            "w": 3,
+            "x": 0,
+            "y": 0
+          },
+          "data_config": {
+            "count_all": true,
+            "filter": {
+              "conditions": [
+                {
+                  "field_name": "选题状态",
+                  "operator": "isNot",
+                  "value": [
+                    "放弃"
+                  ]
+                }
+              ],
+              "conjunction": "and"
+            },
+            "number_format": {
+              "formatName": "digital",
+              "precision": 0
+            },
+            "table_name": "选题池"
+          }
+        },
+        {
+          "name": "下一步 · 可写作",
+          "type": "statistics",
+          "position": {
+            "h": 2,
+            "w": 3,
+            "x": 3,
+            "y": 0
+          },
+          "data_config": {
+            "count_all": true,
+            "filter": {
+              "conditions": [
+                {
+                  "field_name": "选题状态",
+                  "operator": "is",
+                  "value": [
+                    "可改写"
+                  ]
+                }
+              ],
+              "conjunction": "and"
+            },
+            "number_format": {
+              "formatName": "digital",
+              "precision": 0
+            },
+            "table_name": "选题池"
+          }
+        },
+        {
+          "name": "准备录制 · 已写作",
+          "type": "statistics",
+          "position": {
+            "h": 2,
+            "w": 3,
+            "x": 6,
+            "y": 0
+          },
+          "data_config": {
+            "count_all": true,
+            "filter": {
+              "conditions": [
+                {
+                  "field_name": "选题状态",
+                  "operator": "is",
+                  "value": [
+                    "已写作"
+                  ]
+                }
+              ],
+              "conjunction": "and"
+            },
+            "number_format": {
+              "formatName": "digital",
+              "precision": 0
+            },
+            "table_name": "选题池"
+          }
+        },
+        {
+          "name": "正在制作 · 录制版本",
+          "type": "statistics",
+          "position": {
+            "h": 2,
+            "w": 3,
+            "x": 9,
+            "y": 0
+          },
+          "data_config": {
+            "count_all": true,
+            "filter": {
+              "conditions": [
+                {
+                  "field_name": "剪辑状态",
+                  "operator": "isNot",
+                  "value": [
+                    "已发布"
+                  ]
+                },
+                {
+                  "field_name": "剪辑状态",
+                  "operator": "isNot",
+                  "value": [
+                    "搁置"
+                  ]
+                }
+              ],
+              "conjunction": "and"
+            },
+            "number_format": {
+              "formatName": "digital",
+              "precision": 0
+            },
+            "table_name": "视频剪辑"
+          }
+        },
+        {
+          "name": "制作进度分布",
+          "type": "ring",
+          "position": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 2
+          },
+          "data_config": {
+            "count_all": true,
+            "group_by": [
+              {
+                "field_name": "剪辑状态",
+                "mode": "integrated",
+                "sort": {
+                  "type": "group"
+                }
+              }
+            ],
+            "table_name": "视频剪辑"
+          }
+        },
+        {
+          "name": "每期录制素材",
+          "type": "column",
+          "position": {
+            "h": 4,
+            "w": 8,
+            "x": 0,
+            "y": 2
+          },
+          "data_config": {
+            "count_all": true,
+            "group_by": [
+              {
+                "field_name": "录制期次",
+                "mode": "integrated",
+                "sort": {
+                  "order": "asc",
+                  "type": "view"
+                }
+              }
+            ],
+            "table_name": "视频剪辑"
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 数据追踪",
+      "blocks": [
+        {
+          "name": "作品数据追踪",
+          "type": "text",
+          "position": {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2
+          },
+          "data_config": {
+            "text": "\"# 看见作品的成长你发后台截图，我整理作品数据。每次截图保留时间与原图；尚未提供真实截图，趋势图暂时为空。\""
+          }
+        },
+        {
+          "name": "已登记 · 发布作品",
+          "type": "statistics",
+          "position": {
+            "h": 2,
+            "w": 4,
+            "x": 0,
+            "y": 0
+          },
+          "data_config": {
+            "count_all": true,
+            "filter": {
+              "conditions": [
+                {
+                  "field_name": "核对状态",
+                  "operator": "is",
+                  "value": [
+                    "已核对"
+                  ]
+                }
+              ],
+              "conjunction": "and"
+            },
+            "number_format": {
+              "formatName": "digital",
+              "precision": 0
+            },
+            "table_name": "作品发布库"
+          }
+        },
+        {
+          "name": "已核对 · 数据快照",
+          "type": "statistics",
+          "position": {
+            "h": 2,
+            "w": 4,
+            "x": 4,
+            "y": 0
+          },
+          "data_config": {
+            "count_all": true,
+            "filter": {
+              "conditions": [
+                {
+                  "field_name": "核对状态",
+                  "operator": "is",
+                  "value": [
+                    "已核对"
+                  ]
+                }
+              ],
+              "conjunction": "and"
+            },
+            "number_format": {
+              "formatName": "digital",
+              "precision": 0
+            },
+            "table_name": "作品数据快照"
+          }
+        },
+        {
+          "name": "待核对 · 数据快照",
+          "type": "statistics",
+          "position": {
+            "h": 2,
+            "w": 4,
+            "x": 8,
+            "y": 0
+          },
+          "data_config": {
+            "count_all": true,
+            "filter": {
+              "conditions": [
+                {
+                  "field_name": "核对状态",
+                  "operator": "isNot",
+                  "value": [
+                    "已核对"
+                  ]
+                }
+              ],
+              "conjunction": "and"
+            },
+            "number_format": {
+              "formatName": "digital",
+              "precision": 0
+            },
+            "table_name": "作品数据快照"
+          }
+        },
+        {
+          "name": "累计播放 · 各作品趋势",
+          "type": "line",
+          "position": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 6
+          },
+          "data_config": {
+            "filter": {
+              "conditions": [
+                {
+                  "field_name": "核对状态",
+                  "operator": "is",
+                  "value": [
+                    "已核对"
+                  ]
+                },
+                {
+                  "field_name": "数据口径",
+                  "operator": "is",
+                  "value": [
+                    "累计"
+                  ]
+                },
+                {
+                  "field_name": "统计时间",
+                  "operator": "isNotEmpty"
+                },
+                {
+                  "field_name": "关联作品",
+                  "operator": "isNotEmpty"
+                }
+              ],
+              "conjunction": "and"
+            },
+            "group_by": [
+              {
+                "field_name": "统计时间",
+                "mode": "integrated",
+                "sort": {
+                  "order": "asc",
+                  "type": "group"
+                }
+              },
+              {
+                "field_name": "关联作品",
+                "mode": "integrated",
+                "sort": {
+                  "type": "group"
+                }
+              }
+            ],
+            "series": [
+              {
+                "field_name": "播放量",
+                "rollup": "MAX"
+              }
+            ],
+            "table_name": "作品数据快照"
+          }
+        },
+        {
+          "name": "累计点赞 · 各作品趋势",
+          "type": "line",
+          "position": {
+            "h": 4,
+            "w": 8,
+            "x": 4,
+            "y": 6
+          },
+          "data_config": {
+            "filter": {
+              "conditions": [
+                {
+                  "field_name": "核对状态",
+                  "operator": "is",
+                  "value": [
+                    "已核对"
+                  ]
+                },
+                {
+                  "field_name": "数据口径",
+                  "operator": "is",
+                  "value": [
+                    "累计"
+                  ]
+                },
+                {
+                  "field_name": "统计时间",
+                  "operator": "isNotEmpty"
+                },
+                {
+                  "field_name": "关联作品",
+                  "operator": "isNotEmpty"
+                }
+              ],
+              "conjunction": "and"
+            },
+            "group_by": [
+              {
+                "field_name": "统计时间",
+                "mode": "integrated",
+                "sort": {
+                  "order": "asc",
+                  "type": "group"
+                }
+              },
+              {
+                "field_name": "关联作品",
+                "mode": "integrated",
+                "sort": {
+                  "type": "group"
+                }
+              }
+            ],
+            "series": [
+              {
+                "field_name": "点赞数",
+                "rollup": "MAX"
+              }
+            ],
+            "table_name": "作品数据快照"
+          }
+        },
+        {
+          "name": "截图怎么记",
+          "type": "text",
+          "position": {
+            "h": 4,
+            "w": 6,
+            "x": 6,
+            "y": 2
+          },
+          "data_config": {
+            "text": "## 下一张截图，就能开始- **先认作品**：确认账号、平台、作品链接与发布时间。- **再记数据**：播放、点赞、评论、收藏、分享、关注及完播率，按截图实际显示录入。- **保留历史**：同一作品每次新建快照，不覆盖上次数据。- **核对后入图**：不清楚的数值留空；累计与区间数据分开。趋势图只使用已核对的累计数据，同一作品同一时间分组取最大值，不把多次累计截图相加。"
+          }
+        }
+      ]
+    }
+  ]
+}
