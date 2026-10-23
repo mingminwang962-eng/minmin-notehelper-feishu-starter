@@ -2,7 +2,7 @@
 
 把微信里想保存的资料转发给自己的「笔记同步助手」，由 Agent 读取整理、保存到飞书。首次接入、图文指引、测试和后续定时同步，都由 Agent 带着完成。
 
-**当前版本：v0.9** · [下载新版接入包](downloads/笔记同步飞书接入包-v0.9.zip?raw=true) · [更新说明](CHANGELOG.md) · [完整图文步骤](notebook-feishu-onboarding/references/grouped-messages.md)
+**当前版本：v0.9.1** · [下载新版接入包](downloads/笔记同步飞书接入包-v0.9.1.zip?raw=true) · [更新说明](CHANGELOG.md) · [完整图文步骤](notebook-feishu-onboarding/references/grouped-messages.md)
 
 ## 国内下载与一句话接入
 
@@ -67,10 +67,10 @@
 
 ## 版本与验证
 
-v0.9 增加可移植模板与共用同步流程；本地测试结果见验证说明。v0.8 原有下载兜底与手机图文指引保留。
+v0.9.1 补齐跨页资料选择、验收转定时和正文缓存恢复，修复看板说明换行。v0.9 增加可移植模板与共用同步流程；本地测试结果见验证说明。v0.8 原有下载兜底与手机图文指引保留。
 
 v0.7 已通过 45 项本地离线测试，以及新用户 Agent 的 34 次独立运行期断言。它们验证流程、队列和恢复逻辑；真实账号授权、云端解析、飞书图片读回及宿主后台任务，需要在用户自己的环境完成验收。v0.7 当时未配置飞书看板。
 
-[ZIP 校验值](downloads/SHA256SUMS)：`d59c75905ae736fdec097a1cbe2166e4697f916c878c4a65eda0c084839d9799`。
+[ZIP 校验值](downloads/SHA256SUMS)：`4052cb2d575302ac143e72653abaef5330c1641ce210a3098f3c98ed747ee69f`。
 
 本项目是敏敏整理的独立接入引导包，非笔记同步助手、飞书或 WorkBuddy 官方产品。官方教程图片与用户提供的隐私处理图均保留来源说明。本仓库首页结构参考 [dbskill](https://github.com/dontbesilent2025/dbskill) 的“用途 → 快速开始 → 使用方式 → 帮助”组织方式，正文为本项目编写。

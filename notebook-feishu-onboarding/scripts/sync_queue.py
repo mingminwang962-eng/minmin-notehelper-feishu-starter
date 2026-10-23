@@ -172,7 +172,7 @@ def next_item(root, job, skip_ids=()):
         body = selected['content']
         name = hashlib.sha256(note_id.encode()).hexdigest()[:24] + '.md'
         output = root / 'out' / name
-        require(not output.exists(), '正文文件已存在但未登记完成，请核对中断状态，不覆盖或重复创建。')
+        require(not output.exists(), '正文缓存未登记；先核对是否已有飞书写入，再按 recover-source 恢复，不覆盖或重复创建。')
         with output.open('x', encoding='utf-8') as handle:
             handle.write(body)
         if os.name != 'nt':
@@ -191,6 +191,34 @@ def next_item(root, job, skip_ids=()):
     unfinished = [k for k, v in job['items'].items() if v['status'] != 'done']
     return {'ok': True, 'status': 'retry_pending' if unfinished else 'idle',
             'deferred': deferred, 'unfinished': unfinished}
+
+
+def recover_source(root, job, args):
+    item = job['items'][args.id]
+    if item.get('recovered_source') and item['status'] in ('creating', 'created', 'done'):
+        return {'ok': True, 'id': args.id, 'new_claim': False, 'status': item['status'],
+                'source_file': item['source_file'], 'doc_url': item.get('doc_url')}
+    require(item['status'] == 'pending' and args.no_write_confirmed,
+            '仅恢复 pending 孤立缓存；先确认原进程停止、飞书目标和索引没有既有写入。')
+    name = hashlib.sha256(args.id.encode()).hexdigest()[:24] + '.md'
+    output = root / 'out' / name
+    require(output.is_file() and not output.is_symlink() and root.resolve() in output.resolve().parents,
+            '缓存必须是本任务 out 内的普通文件，不接受符号链接。')
+    selected = cloud.search(configured_key(job['config']), item.get('query', ''), 1,
+                            item['metadata']['result_after'], True, args.id)['articles'][0]
+    require(selected['id'] == args.id and selected.get('content_available'), '原 ID 正文未就绪，保留原缓存待复核。')
+    body = selected['content']
+    # Universal-newline read also handles caches originally written on Windows.
+    require(output.read_text(encoding='utf-8') == body.replace('\r\n', '\n').replace('\r', '\n'),
+            '缓存与当前指定 ID 正文不同，不覆盖、不授予创建许可；先人工核对。')
+    item.update(status='creating', source_file='out/' + name, recovered_source=True,
+                content_sha256=hashlib.sha256(body.encode()).hexdigest(),
+                metadata={k: v for k, v in selected.items() if k != 'content'}, started_at=now())
+    item.pop('last_error', None)
+    save(root / 'job.json', job)
+    return {'ok': True, 'id': args.id, 'status': 'creating', 'new_claim': True,
+            'source_file': item['source_file'], 'target': job['target'],
+            'next': '仅本次允许创建一次；立即 bind 实际 URL。重试时 new_claim=false，禁止重复创建。'}
 
 
 def complete(root, job, args):
@@ -254,6 +282,14 @@ def main():
     select = commands.add_parser('select')
     select.add_argument('--id', required=True)
     select.add_argument('--query', required=True)
+    select.add_argument('--after', type=int, default=0, help='只读定位时该页的 after 偏移')
+    final = commands.add_parser('finalize')
+    for flag in ('cadence', 'timezone', 'test-note-id', 'test-doc-url'):
+        final.add_argument('--' + flag, required=True)
+    final.add_argument('--user-tested', action='store_true')
+    recover = commands.add_parser('recover-source')
+    recover.add_argument('--id', required=True)
+    recover.add_argument('--no-write-confirmed', action='store_true')
     index = commands.add_parser('index-start')
     index.add_argument('--id', required=True)
     index_bind = commands.add_parser('bind-index')
@@ -289,15 +325,32 @@ def main():
             require(lease.exists(), '没有可释放的运行锁。')
             lease.unlink();cloud.output({'ok': True});return
         if args.command == 'select':
+            require(args.after >= 0, 'after 不能为负数。')
             if args.id in job['items']:
                 result = {'ok': True, 'id': args.id, 'status': job['items'][args.id]['status'], 'duplicate': True}
             else:
-                page = cloud.search(configured_key(job['config']), args.query, 50, 0, False)
+                page = cloud.search(configured_key(job['config']), args.query, 50, args.after, False)
                 matches = [a for a in page['articles'] if a['id'] == args.id]
                 require(len(matches) == 1, '指定资料未在当前搜索页唯一匹配；先只读定位，不扩大正文范围。')
                 job['items'][args.id] = {'status': 'pending', 'metadata': matches[0], 'query': args.query}
                 save(root / 'job.json', job)
                 result = {'ok': True, 'id': args.id, 'status': 'pending'}
+        elif args.command == 'finalize':
+            require(args.user_tested and args.cadence.strip() and args.cadence.strip() != 'manual'
+                    and args.timezone.strip(), '需要用户验收以及明确的频率和时区。')
+            item = job['items'].get(args.test_note_id, {})
+            doc_token(args.test_doc_url)
+            require(item.get('status') == 'done' and item.get('doc_url') == args.test_doc_url,
+                    '测试资料必须已完成正文与索引读回，且文档 URL 一致。')
+            require(not job.get('schedule') or (job['cadence'] == args.cadence and
+                    job['timezone'] == args.timezone), '已有定时任务，不能只改本地频率；先核对宿主任务。')
+            job.update(cadence=args.cadence, timezone=args.timezone, user_test_confirmed=True,
+                       test_note_id=args.test_note_id, test_doc_url=args.test_doc_url)
+            save(root / 'job.json', job)
+            result = {'ok': True, 'configuration_ready': True, 'scheduled': False,
+                      'next': '仍需创建或复用真实宿主定时任务、试跑并登记回执。'}
+        elif args.command == 'recover-source':
+            result = recover_source(root, job, args)
         elif args.command == 'index-start':
             item = job['items'][args.id]
             require(item['status'] == 'created' and bool(job.get('board')), '先绑定正文文档和目标模板。')
@@ -327,6 +380,8 @@ def main():
         elif args.command == 'complete':
             result = complete(root, job, args)
         elif args.command == 'schedule-receipt':
+            require(job.get('user_test_confirmed') and job['cadence'] != 'manual',
+                    '先用 finalize 登记用户验收和频率，再登记真实定时回执。')
             require(not job['schedule'] or job['schedule']['task_id'] == args.task_id,
                     '已登记另一任务，请复用它，不创建重复定时。')
             job['schedule'] = {'task_id': args.task_id, 'next_run': args.next_run,
@@ -336,6 +391,8 @@ def main():
                       'notice': '本程序不创建或验证宿主任务；Agent 必须核对实际任务详情与试跑结果。'}
         else:
             result = {'ok': True, 'target': job['target'], 'cadence': job['cadence'],
+                      'user_test_confirmed': job.get('user_test_confirmed', False),
+                      'test_note_id': job.get('test_note_id'), 'test_doc_url': job.get('test_doc_url'),
                       'timezone': job['timezone'], 'schedule': job['schedule'], 'board': job.get('board'),
                       'items': {k: {'status': v['status'], 'doc_url': v.get('doc_url')}
                                 for k, v in job['items'].items()}}
