@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>微信资料存进飞书｜敏敏笔记同步接入包</title>
-<meta name="description" content="复制一句话给 Agent，带你完成微信笔记同步助手与飞书接入。含完整说明书、操作图片与 v0.9.1 下载包。">
+<meta name="description" content="复制一句话给 Agent，带你完成微信笔记同步助手与飞书接入。含完整说明书、操作图片与 v0.9.2 下载包。">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="readme-layout">
 <header class="site-header"><a class="brand" href="./">敏敏 <span>/ 笔记同步</span></a><a href="guide.html">图文说明书 ↗</a> · <a href="notebook-feishu-onboarding/references/recording-rules.html">模板与记录规则 ↗</a></header>
 <main>
 <section class="hero">
-<div class="intro"><p class="eyebrow">微信 → 笔记同步助手 → 飞书 <span class="version">v0.9.1</span></p>
+<div class="intro"><p class="eyebrow">微信 → 笔记同步助手 → 飞书 <span class="version">v0.9.2</span></p>
 <h1>微信转发的资料，存进你的飞书。</h1>
 <p class="lead">把下面这句话发给 Agent。它会带你接好微信和飞书，测试通过后，再按你确认的频率自动同步。</p>
 </div>
 <div class="prompt-card"><p class="card-label">一句话开始 <span>发到 Agent 对话框</span></p>
 <label class="sr-only" for="install-prompt">安装口令</label><textarea id="install-prompt" readonly rows="4">请打开 https://tools.minmin11538.cn/notehelper/ ，下载并校验完整接入包；网页读取失败时自动用命令行 HTTPS 获取 https://tools.minmin11538.cn/notehelper/install.md 和同目录 release.json 继续下载。读取包内 notebook-feishu-onboarding/SKILL.md，带我完成微信转发到飞书的接入、测试和定时同步；已有飞书连接直接复用，需要我操作时把整组动作和图片一次发齐。</textarea>
-<div class="actions"><button class="primary" id="copy-main" type="button">复制给 Agent</button><a class="secondary" href="downloads/笔记同步飞书接入包-v0.9.1.zip" download>下载完整包 ↓</a></div>
+<div class="actions"><button class="primary" id="copy-main" type="button">复制给 Agent</button><a class="secondary" href="downloads/笔记同步飞书接入包-v0.9.2.zip" download>下载完整包 ↓</a></div>
 <p id="copy-status" role="status" aria-live="polite">适用于可联网、下载文件并执行本机命令的 Agent，如 WorkBuddy。</p>
 <p class="card-foot">不用手动安装 Obsidian，也不用自己改配置文件。接入完成后，日常微信转发与定时同步不用再打开这个网页。</p></div>
 </section>
@@ -27,9 +27,9 @@
 </div></section>
 <section class="manual-callout"><div><p class="eyebrow">每组动作，配图一起看</p><h2>卡住了，就看对应这一组。</h2><p>微信搜索、关注、发送 Obsidian、手机置顶都有操作示意；密钥位置、添加好友、转发、飞书授权和定时设置保留原有配图。</p></div><a class="secondary" href="guide.html">打开图文说明书 →</a></section>
 <section class="notes"><h2>开始前知道这几件事</h2><ul><li>准备自己的微信、飞书账号，以及一条愿意测试的资料。密钥只从你自己的开通消息获取；不要提交到这个网页。</li><li>已接好飞书就复用。首次定时同步从启用时建立基线，只处理之后新发现的资料；飞书使用通用内容创作模板，手动和定时共用记录规则。</li><li>本地定时任务需要电脑和 Agent 客户端可用。只有后台试跑、文档读回和重复运行去重通过，才算启用成功。</li><li>网页、操作图片和完整 ZIP 均从当前域名提供。Agent 后续安装工具与授权时，会按官方指引访问相应服务。</li></ul></section>
-<details class="agent-details"><summary>给 Agent 的下载入口与校验信息</summary><p>按 <a href="release.json">release.json</a> 获取本版完整包地址、SHA-256 与说明书入口。网页读取失败时，Agent 自动用命令行 HTTPS 获取纯文本接入入口和 release.json。下载 ZIP 后先校验，再解压读取 Skill；不要只下载单个 SKILL.md，配图和脚本也在完整包里。</p><p>SHA-256：<code class="digest">4052cb2d575302ac143e72653abaef5330c1641ce210a3098f3c98ed747ee69f</code></p><p><a href="install.md">纯文本接入入口</a> · <a href="downloads/SHA256SUMS">下载校验文件</a> · <a href="guide.md">原始图文说明</a></p><p>v0.9.1 已通过 66 项离线检查；v0.9 已完成单条资料的正文、图片、索引入库和重复运行去重测试；首次使用仍需在自己的账号与宿主中完成授权、用户验收和真实定时试跑。</p></details>
+<details class="agent-details"><summary>给 Agent 的下载入口与校验信息</summary><p>按 <a href="release.json">release.json</a> 获取本版完整包地址、SHA-256 与说明书入口。网页读取失败时，Agent 自动用命令行 HTTPS 获取纯文本接入入口和 release.json。下载 ZIP 后先校验，再解压读取 Skill；不要只下载单个 SKILL.md，配图和脚本也在完整包里。</p><p>SHA-256：<code class="digest">106b0875c2e68e86c0d884f96c3bdb0f273a835fdbff4d27925a4414cf042168</code></p><p><a href="install.md">纯文本接入入口</a> · <a href="downloads/SHA256SUMS">下载校验文件</a> · <a href="guide.md">原始图文说明</a></p><p>v0.9.2 已通过 66 项离线检查；v0.9 已完成单条资料的正文、图片、索引入库和重复运行去重测试；首次使用仍需在自己的账号与宿主中完成授权、用户验收和真实定时试跑。</p></details>
 </main>
-<footer><span>敏敏 · 独立接入引导</span><span><a href="sources.html">官方来源与图片出处</a> · <a href="https://github.com/mingminwang962-eng/minmin-notehelper-feishu-starter">GitHub 源码</a></span><p>非笔记同步助手、飞书或 WorkBuddy 官方产品。</p></footer>
+<footer><span>敏敏制作 · <a href="https://tools.minmin11538.cn/notehelper/">笔记同步飞书接入包 · 项目介绍</a></span><span><a href="sources.html">官方来源与图片出处</a> · <a href="https://github.com/mingminwang962-eng/minmin-notehelper-feishu-starter">GitHub 源码</a></span><p>非笔记同步助手、飞书或 WorkBuddy 官方产品。 · <a href="BRAND-LICENSE.html">来源署名许可</a> · <a href="COPYRIGHT.html">版权范围</a></p></footer>
 <script>
 const input=document.getElementById('install-prompt');
 document.getElementById('copy-main').addEventListener('click',async()=>{
