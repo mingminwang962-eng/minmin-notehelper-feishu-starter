@@ -2,7 +2,7 @@
 
 把微信里想保存的资料转发给自己的「笔记同步助手」，由 Agent 读取整理、保存到飞书。首次接入、图文指引、测试和后续定时同步，都由 Agent 带着完成。
 
-**当前版本：v0.9.2** · [下载新版接入包](downloads/笔记同步飞书接入包-v0.9.2.zip?raw=true) · [更新说明](CHANGELOG.md) · [完整图文步骤](notebook-feishu-onboarding/references/grouped-messages.md)
+**当前版本：v0.9.3** · [下载新版接入包](downloads/笔记同步飞书接入包-v0.9.3.zip?raw=true) · [更新说明](CHANGELOG.md) · [完整图文步骤](notebook-feishu-onboarding/references/grouped-messages.md)
 
 ## 国内下载与一句话接入
 
@@ -71,12 +71,6 @@ v0.9.1 补齐跨页资料选择、验收转定时和正文缓存恢复，修复�
 
 v0.7 已通过 45 项本地离线测试，以及新用户 Agent 的 34 次独立运行期断言。它们验证流程、队列和恢复逻辑；真实账号授权、云端解析、飞书图片读回及宿主后台任务，需要在用户自己的环境完成验收。v0.7 当时未配置飞书看板。
 
-[ZIP 校验值](downloads/SHA256SUMS)：`106b0875c2e68e86c0d884f96c3bdb0f273a835fdbff4d27925a4414cf042168`。
+[ZIP 校验值](downloads/SHA256SUMS)：`047788a0f5027526f5b0e0a55d0fa0f76edc33ba33805354daaaed8db315fa35`。
 
 本项目是敏敏整理的独立接入引导包，非笔记同步助手、飞书或 WorkBuddy 官方产品。官方教程图片与用户提供的隐私处理图均保留来源说明。本仓库首页结构参考 [dbskill](https://github.com/dontbesilent2025/dbskill) 的“用途 → 快速开始 → 使用方式 → 帮助”组织方式，正文为本项目编写。
-
-## 来源署名与许可范围
-
-本次新增的原创署名内容采用 [敏敏工具来源署名许可](BRAND-LICENSE.md)，详见 [版权范围](COPYRIGHT.md)。保留适用的项目来源署名和链接；第三方与旧版 MIT 权利不变。用户生成图片、笔记和飞书文档不加水印。
-
-品牌官网尚待建设，暂用本项目已上线的介绍页；[官网待补记录](FOLLOW_UP.md)。

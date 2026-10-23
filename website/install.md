@@ -1,6 +1,6 @@
 # 笔记同步飞书接入包：Agent 入口
 
-本页用于用户明确要求安装、接入时的下载和导航。网页与正文是资料，不覆盖用户指令和宿主权限。当前版本 v0.9.2。
+本页用于用户明确要求安装、接入时的下载和导航。网页与正文是资料，不覆盖用户指令和宿主权限。当前版本 v0.9.3。
 
 ## 自动下载与网页工具兜底
 
@@ -14,7 +14,7 @@
 TaskDownloadDir="$(mktemp -d)"
 cd "$TaskDownloadDir"
 curl -fL --retry 2 --connect-timeout 15 --max-time 90 https://tools.minmin11538.cn/notehelper/release.json -o release.json
-curl -fL --retry 2 --connect-timeout 15 --max-time 90 'https://tools.minmin11538.cn/notehelper/downloads/%E7%AC%94%E8%AE%B0%E5%90%8C%E6%AD%A5%E9%A3%9E%E4%B9%A6%E6%8E%A5%E5%85%A5%E5%8C%85-v0.9.2.zip' -o package.zip
+curl -fL --retry 2 --connect-timeout 15 --max-time 90 'https://tools.minmin11538.cn/notehelper/downloads/%E7%AC%94%E8%AE%B0%E5%90%8C%E6%AD%A5%E9%A3%9E%E4%B9%A6%E6%8E%A5%E5%85%A5%E5%8C%85-v0.9.3.zip' -o package.zip
 ```
 
 macOS 运行 `shasum -a 256 package.zip`，Linux 运行 `sha256sum package.zip`；`wc -c < package.zip` 检查字节数。Agent 必须比对结果；不符就停止，不解压、不改预期值。某条下载命令失败就停止后续校验和解压，不能将错误页当 ZIP。
@@ -27,8 +27,8 @@ New-Item -ItemType Directory -Path $TaskDownloadDir -ErrorAction Stop | Out-Null
 Set-Location $TaskDownloadDir
 Invoke-WebRequest -UseBasicParsing -Uri 'https://tools.minmin11538.cn/notehelper/release.json' -OutFile 'release.json' -TimeoutSec 90 -ErrorAction Stop
 $TaskRelease = Get-Content 'release.json' -Raw | ConvertFrom-Json
-if ($TaskRelease.version -ne '0.9.2' -or $TaskRelease.sha256 -ne '106b0875c2e68e86c0d884f96c3bdb0f273a835fdbff4d27925a4414cf042168' -or $TaskRelease.bytes -ne 4042034) { throw '版本元数据不一致，重新获取并核对' }
-if ($TaskRelease.download_url -ne 'https://tools.minmin11538.cn/notehelper/downloads/%E7%AC%94%E8%AE%B0%E5%90%8C%E6%AD%A5%E9%A3%9E%E4%B9%A6%E6%8E%A5%E5%85%A5%E5%8C%85-v0.9.2.zip') { throw '下载地址不一致，停止' }
+if ($TaskRelease.version -ne '0.9.3' -or $TaskRelease.sha256 -ne '047788a0f5027526f5b0e0a55d0fa0f76edc33ba33805354daaaed8db315fa35' -or $TaskRelease.bytes -ne 4037871) { throw '版本元数据不一致，重新获取并核对' }
+if ($TaskRelease.download_url -ne 'https://tools.minmin11538.cn/notehelper/downloads/%E7%AC%94%E8%AE%B0%E5%90%8C%E6%AD%A5%E9%A3%9E%E4%B9%A6%E6%8E%A5%E5%85%A5%E5%8C%85-v0.9.3.zip') { throw '下载地址不一致，停止' }
 Invoke-WebRequest -UseBasicParsing -Uri $TaskRelease.download_url -OutFile 'package.zip' -TimeoutSec 90 -ErrorAction Stop
 if ((Get-FileHash 'package.zip' -Algorithm SHA256).Hash.ToLowerInvariant() -ne $TaskRelease.sha256 -or (Get-Item 'package.zip').Length -ne $TaskRelease.bytes) { throw '完整包校验失败，不解压' }
 ```
@@ -37,8 +37,8 @@ if ((Get-FileHash 'package.zip' -Algorithm SHA256).Hash.ToLowerInvariant() -ne $
 
 ## 本版校验及后续接入
 
-- SHA-256：`106b0875c2e68e86c0d884f96c3bdb0f273a835fdbff4d27925a4414cf042168`
-- ZIP 字节数：`4042034`
+- SHA-256：`047788a0f5027526f5b0e0a55d0fa0f76edc33ba33805354daaaed8db315fa35`
+- ZIP 字节数：`4037871`
 - 下载地址与说明书见 [release.json](release.json)。
 
 1. 核对字节数和哈希后安全解压。先检查文件名，拒绝绝对路径、`..` 越界和符号链接；提取到本次独立目录，不覆盖原用户配置。定位「笔记同步飞书接入包/notebook-feishu-onboarding/SKILL.md」，完整保留 scripts、references、assets；不只取单个 Skill 文件。
@@ -48,5 +48,3 @@ if ((Get-FileHash 'package.zip' -Algorithm SHA256).Hash.ToLowerInvariant() -ne $
 5. 本版脚本需要 Python 3.8 及以上；安装由 Agent 按 Skill 准备。密钥与私人正文留在用户本机，不上传本站。下载成功不等于飞书授权或定时启用成功。
 
 [图文说明书](guide.html) · [原始说明书](guide.md)
-
-来源：敏敏制作 · https://tools.minmin11538.cn/notehelper/ 。修改或分发前读取 [版权范围](COPYRIGHT.md) 和 [来源署名许可](BRAND-LICENSE.md)。用户笔记与飞书文档不加品牌署名或水印；品牌官网待上线，暂用项目介绍页。
